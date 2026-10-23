@@ -19,9 +19,16 @@ let exampleIndex = 0;
 let typingTimer;
 let characterIndex = 0;
 let deleting = false;
+function fitPrompt() {
+  // Let the complete card copy remain visible, including on narrow screens.
+  const input = prompt.parentElement;
+  input.style.height = '0px';
+  input.style.height = `${Math.min(240, prompt.scrollHeight)}px`;
+}
 function updateInput() {
   prompt.parentElement.classList.toggle('has-value', Boolean(prompt.value));
   prompt.setCustomValidity('');
+  fitPrompt();
   syncTyping();
 }
 function showStatus(message) {
@@ -65,6 +72,11 @@ document.addEventListener('visibilitychange', syncTyping);
 window.addEventListener('hashchange', syncTyping);
 reducedMotion.addEventListener('change', syncTyping);
 prompt.addEventListener('input', updateInput);
+let composerWidth = 0;
+new ResizeObserver(entries => {
+  const width = entries[0].contentRect.width;
+  if (width !== composerWidth) { composerWidth = width; fitPrompt(); }
+}).observe(composer);
 const call = mountRoleplayCall(document.querySelector('#content'), { onReturn: () => setup.close() });
 const setup = mountRoleplaySetup({
   screen, composer, prompt, onPromptChange: updateInput,
@@ -73,9 +85,15 @@ const setup = mountRoleplaySetup({
 });
 document.querySelectorAll('[data-scenario]').forEach(button => {
   button.addEventListener('click', () => {
-    prompt.value = button.dataset.scenarioTitle || `I want to role play ${examples[Number(button.dataset.scenario)]}`;
+    if (listening) recognition.abort();
+    const title = button.dataset.scenarioTitle || button.querySelector('.scenario-title').textContent.trim();
+    const description = button.querySelector('.scenario-description').textContent.trim();
+    prompt.value = `${title}\n${description}`;
+    status.hidden = true;
     updateInput();
-    setup.open(button.dataset.scenarioTitle || button.querySelector('.scenario-description').textContent, button);
+    // Review or edit the prompt first; only submitting Continue opens setup.
+    composer.querySelector('.send-scenario').focus({ preventScroll: true });
+    composer.scrollIntoView({ block: 'center', behavior: reducedMotion.matches ? 'instant' : 'smooth' });
   });
 });
 const viewAll = document.querySelector('.view-scenarios');
