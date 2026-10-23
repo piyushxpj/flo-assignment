@@ -1,0 +1,58 @@
+@font-face{font-family:Recoleta;src:url('/assets/recoleta-demo.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+.content{container-type:inline-size}
+.content.is-roleplay{display:flex;flex-direction:column;padding:40px 0}
+.roleplay-screen{width:695px;max-width:calc(100% - 64px);margin:auto;flex:none;position:relative;left:-.5px;display:flex;flex-direction:column;gap:28px}
+.roleplay-intro{position:relative;display:flex;flex-direction:column;gap:16px}
+.roleplay-intro h1{font:400 32px/35px Recoleta,Georgia,serif;letter-spacing:-1px;color:#fafafa;margin:0}
+.roleplay-intro>p{font:400 16px/22px Figtree,sans-serif;color:#77757f;margin:0;width:478px;max-width:calc(100% - 170px)}
+.roleplay-mascot{position:absolute;right:0;top:6px;width:130px;height:105px;overflow:hidden;pointer-events:none}
+.roleplay-mascot svg{display:block;width:100%;height:100%;overflow:visible}
+.roleplay-suggestions{display:flex;flex-direction:column;gap:16px;align-items:flex-end}
+.scenario-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;width:100%}
+.scenario-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:41px;height:145px;min-width:0;padding:12px;border-radius:12px;overflow:hidden;text-align:left;background:rgba(255,255,255,.04);box-shadow:inset 0 3px 4.7px rgba(255,255,255,.06);transition:background-color 160ms ease,transform 160ms cubic-bezier(.23,1,.32,1)}
+.scenario-copy{display:flex;flex-direction:column;gap:6px;position:relative;z-index:1;width:100%}
+.scenario-title{font:500 14px/20px Figtree,sans-serif;color:rgba(255,255,255,.88)}
+.scenario-description{font:400 12px/15px Figtree,sans-serif;color:rgba(255,255,255,.48)}
+.card-dots{position:absolute;right:-55.67px;top:-83px;pointer-events:none}
+.view-scenarios{font:400 14px/16px Figtree,sans-serif;color:#77757f;padding:0;border-radius:4px}
+.roleplay-or{display:flex;gap:16px;align-items:center;font:400 14px/16px Figtree,sans-serif;color:#77757f}
+.roleplay-or>span:not(:nth-child(2)){flex:1;min-width:0;height:1px;overflow:hidden}
+.roleplay-or img{width:325px;height:1px}
+.roleplay-composer{position:relative;display:flex;flex-direction:column;padding:12px;border-radius:12px;background:#212123;box-shadow:inset 0 3px 6.8px rgba(255,255,255,.06)}
+.composer-input{position:relative;height:82px;min-width:0}
+#practice-prompt{display:block;background:transparent;border:0;outline:none;color:rgba(255,255,255,.88);font:400 16px/22px Figtree,sans-serif;width:100%;height:100%;padding:0 0 10px;resize:none;border-radius:2px}
+.roleplay-composer:focus-within{outline:1px solid rgba(186,171,255,.22);outline-offset:0}
+.composer-actions{display:flex;align-items:center;justify-content:space-between}
+.talk-to-flo{display:flex;gap:4px;align-items:center;justify-content:center;height:32px;padding:8px 7px 8px 6px;border-radius:8px;background:rgba(255,255,255,.04);font:400 14px/16px Figtree,sans-serif;color:rgba(255,255,255,.48)}
+.send-scenario{height:32px;padding:0 10px;border-radius:8px;background:#baabff;box-shadow:inset 0 2px 4px rgba(255,255,255,.74);font:500 14px/17px Figtree,sans-serif;color:#0c0c0e;transition:transform 120ms ease,background-color 160ms ease}
+.scenario-card:active,.send-scenario:active,.talk-to-flo:active{transform:scale(.98)}
+.roleplay-status{margin:0;font:400 14px/20px Figtree,sans-serif;color:#baabff}
+@media(hover:hover) and (pointer:fine){.scenario-card:hover::before{opacity:1}.view-scenarios:hover{color:#baabff}.talk-to-flo:hover{color:#ffffffc2}.send-scenario:hover{background:#c5b9ff}}
+@container(max-width:780px){.roleplay-intro h1{max-width:calc(100% - 140px)}.roleplay-intro>p{max-width:calc(100% - 140px)}.scenario-card{height:auto;min-height:160px;gap:32px}}
+@container(max-width:560px){.roleplay-screen{max-width:calc(100% - 40px);gap:24px}.roleplay-intro h1{font-size:28px;line-height:32px;max-width:100%;padding-right:64px}.roleplay-intro>p{max-width:100%;width:auto;font-size:14px;line-height:20px}.roleplay-mascot{width:65px;height:52.5px;top:0}.scenario-cards{grid-template-columns:1fr}.scenario-card{min-height:136px;gap:24px}#practice-prompt{font-size:14px;line-height:20px}.talk-to-flo{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.scenario-card,.send-scenario{transition:none!important;transform:none!important}}
+
+.scenario-card{isolation:isolate}
+.scenario-card::before{content:"";position:absolute;right:-12px;top:-12px;width:85%;height:115%;z-index:-1;pointer-events:none;background:linear-gradient(225deg,rgba(186,171,255,.23) 0%,rgba(186,171,255,.095) 25%,transparent 65%);filter:blur(12px);opacity:0;transition:opacity 220ms ease}
+.scenario-card::after{content:"";position:absolute;right:-55.67px;top:-83px;width:164px;height:160px;pointer-events:none;background:#baabff;mask:url('/assets/card-dots.svg') center / 164px 160px no-repeat;-webkit-mask:url('/assets/card-dots.svg') center / 164px 160px no-repeat;opacity:0;filter:drop-shadow(0 0 2px rgba(186,171,255,.6));transition:opacity 220ms ease}
+.scenario-card:focus-visible::after{opacity:1}
+@media(hover:hover) and (pointer:fine){.scenario-card:hover::after{opacity:1}}
+.scenario-card:focus-visible::before{opacity:1}
+#more-scenarios{opacity:1;transform:translateY(0);transition:opacity 180ms ease,transform 180ms cubic-bezier(.23,1,.32,1)}
+@starting-style{#more-scenarios{opacity:0;transform:translateY(5px)}}
+@media(prefers-reduced-motion:reduce){#more-scenarios{transition:none;transform:none}}
+
+/* The update strip sits behind the composer with the same 108px overlap as Figma. */
+.composer-with-update{position:relative;isolation:isolate;border-radius:12px}
+.composer-with-update::before{content:"";position:absolute;inset:30px 0 0;z-index:-1;border-radius:12px;background:linear-gradient(98.201deg,rgba(255,255,255,.36) 8.3334%,rgba(255,255,255,0) 85.719%),#baabff;box-shadow:inset 0 -5px 6.2px rgba(255,255,255,.25);pointer-events:none}
+.roleplay-composer{z-index:1;margin:0}
+.composer-update{display:flex;align-items:center;justify-content:space-between;gap:6px 12px;min-height:30px;padding:7px 14px;font:500 13px/16px Figtree,sans-serif;color:#0c0c0e}
+.update-link{padding:0;flex:none;color:rgba(12,12,14,.4);font:inherit;line-height:inherit}
+@container(max-width:400px){.composer-update{flex-wrap:wrap}}
+
+.practice-placeholder{position:absolute;top:0;left:0;right:0;pointer-events:none;font:400 16px/22px Figtree,sans-serif;color:#77757f;transition:opacity 150ms ease}
+.rotating-prompt{display:inline;vertical-align:baseline}
+.rotating-prompt::after{content:"";display:inline-block;height:1em;border-right:1px solid currentColor;margin-left:2px;vertical-align:-2px;opacity:.65}
+.composer-input:focus-within .practice-placeholder,.composer-input.has-value .practice-placeholder{opacity:0}
+@container(max-width:560px){.practice-placeholder{font-size:14px;line-height:20px}.rotating-prompt{display:block}}
+@media(prefers-reduced-motion:reduce){.practice-placeholder{transition:none}.rotating-prompt::after{display:none}}

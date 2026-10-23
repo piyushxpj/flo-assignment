@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c0c0e" />
+    <title>Roleplay · Flo</title>
+    <link rel="preload" href="/assets/figtree-medium.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/roleplay.css" />
+    <link rel="stylesheet" href="/roleplay-setup.css" />
+    <link rel="stylesheet" href="/roleplay-call.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div class="app">
+      <aside class="sidebar" aria-label="Sidebar">
+        <header class="sidebar-header">
+          <a class="brand" href="#home" aria-label="Flo home"><img src="/assets/logo.png" alt="Flo 101" /></a>
+          <button class="collapse-toggle" aria-label="Collapse sidebar" aria-expanded="true" aria-controls="navigation" title="Collapse sidebar">
+            <img src="/assets/collapse.svg" alt="" />
+          </button>
+        </header>
+        <div class="sidebar-body">
+          <div class="ambient-glow" aria-hidden="true"></div>
+          <nav id="navigation" aria-label="Main navigation">
+            <div class="primary-links" data-links="primary"></div>
+            <div class="divider"><img src="/assets/divider.svg" alt="" /></div>
+            <section class="practice-group" aria-label="Practice">
+              <button class="nav-item practice-toggle" aria-expanded="true" aria-controls="practice-links" title="Practice">
+                <img class="nav-icon" src="/assets/practice.svg" alt="" />
+                <span class="nav-label">Practice</span>
+                <img class="practice-chevron" src="/assets/chevron.svg" alt="" />
+              </button>
+              <div class="practice-reveal"><div class="practice-clip"><div id="practice-links" class="practice-links" data-links="practice"></div></div></div>
+            </section>
+            <div class="divider second-divider"><img src="/assets/divider.svg" alt="" /></div>
+            <div class="secondary-links" data-links="secondary"></div>
+          </nav>
+          <footer class="sidebar-footer">
+            <div class="divider"><img src="/assets/divider.svg" alt="" /></div>
+            <div class="sidebar-mascot">
+              <div class="sidebar-mascot-scale"><img src="/assets/flo-ufo.svg" width="72" height="54" alt="Flo flying a purple UFO" draggable="false" /></div>
+            </div>
+            <div class="profile" aria-label="Piyush Jain" title="Piyush Jain">
+              <img class="avatar" src="/assets/avatar.png" alt="" />
+              <span class="profile-details"><span>Piyush Jain</span><span class="email">piyushj0308@gmail.com</span></span>
+            </div>
+            <button class="feedback-trigger" hidden type="button" aria-expanded="false" aria-controls="feedback-popup">Submit Feedback</button>
+            <section id="feedback-popup" class="feedback-popup" role="dialog" aria-labelledby="feedback-title" hidden>
+              <div class="feedback-heading"><h2 id="feedback-title">Submit Feedback</h2><button class="feedback-close" type="button" aria-label="Close feedback">×</button></div>
+              <form id="feedback-form">
+                <label class="sr-only" for="feedback-message">Your feedback</label>
+                <textarea id="feedback-message" name="feedback" rows="4" maxlength="2000" placeholder="Share your thoughts…" required></textarea>
+                <button class="feedback-submit" type="submit" hidden>Submit</button>
+              </form>
+              <p class="feedback-status" role="status" aria-live="polite"></p>
+            </section>
+          </footer>
+        </div>
+      </aside>
+      <main id="content" class="content" tabindex="-1" aria-label="Roleplay">
+        <section class="roleplay-screen" aria-labelledby="roleplay-heading">
+          <header class="roleplay-intro">
+            <h1 id="roleplay-heading">Ready to practice, Piyush?</h1>
+            <p>Flo creates personalized roleplay scenarios from your roadmaps and progress. Have a voice conversation with Flo as an interviewer, customer, investor, or teammate.</p>
+            <div class="roleplay-mascot" role="img" aria-label="Flo waving hello, wearing a headset beside speech bubbles"></div>
+          </header>
+          <div class="roleplay-suggestions">
+            <div class="scenario-cards">
+              <button class="scenario-card" type="button" data-scenario="senior-designer" data-scenario-title="Interview for a Senior Designer Position in a Startup">
+                <img class="scenario-icon" src="/assets/customer.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Senior Designer interview</span><span class="scenario-description">Walk through your work, design decisions, and impact at a startup.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+              <button class="scenario-card" type="button" data-scenario="0">
+                <img class="scenario-icon" src="/assets/architecture.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Architecture Review</span><span class="scenario-description">Defend a system design under skeptical senior-architect critique.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+              <button class="scenario-card" type="button" data-scenario="1">
+                <img class="scenario-icon" src="/assets/code-review.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Code review pushback</span><span class="scenario-description">Defend a PR a senior wants you to rewrite pick your battles.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+            </div>
+            <div id="more-scenarios" class="scenario-cards" hidden>
+              <button class="scenario-card" type="button" data-scenario="2">
+                <img class="scenario-icon" src="/assets/customer.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Customer escalation</span><span class="scenario-description">Defuse a major customer threatening to churn over a P0 outage.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+              <button class="scenario-card" type="button" data-scenario="3">
+                <img class="scenario-icon" src="/assets/customer.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Tough 1:1 feedback</span><span class="scenario-description">Give honest feedback without derailing a difficult conversation.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+              <button class="scenario-card" type="button" data-scenario="4">
+                <img class="scenario-icon" src="/assets/architecture.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Oral exam defense</span><span class="scenario-description">Defend your project and explain your decisions under pressure.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+              <button class="scenario-card" type="button" data-scenario="5">
+                <img class="scenario-icon" src="/assets/customer.svg" alt="" />
+                <span class="scenario-copy"><span class="scenario-title">Salary negotiation</span><span class="scenario-description">Make your case for a better salary and handle tough pushback.</span></span>
+                <img class="card-dots" src="/assets/card-dots.svg" alt="" />
+              </button>
+            </div>
+            <button class="view-scenarios" type="button" aria-expanded="false" aria-controls="more-scenarios">View All →</button>
+          </div>
+          <div class="roleplay-or" aria-hidden="true"><span><img src="/assets/roleplay-divider.svg" alt="" /></span><span>or</span><span><img src="/assets/roleplay-divider.svg" alt="" /></span></div>
+          <div class="composer-with-update">
+          <form class="roleplay-composer">
+            <div class="composer-input">
+              <label class="sr-only" for="practice-prompt">Describe what you want to role play</label>
+              <textarea id="practice-prompt" rows="3" maxlength="2000" required></textarea>
+              <div class="practice-placeholder" aria-hidden="true"><span>I want to role play...</span> <span class="rotating-prompt">an architecture review.</span></div>
+            </div>
+            <div class="composer-actions">
+              <button class="talk-to-flo" type="button"><img src="/assets/composer-microphone.svg" alt="" /><span>Talk to Flo</span></button>
+              <button class="send-scenario" type="submit">Continue</button>
+            </div>
+          </form>
+          <aside class="composer-update" aria-label="Flo update">
+            <span>New Update for Flo is here</span>
+            <span class="update-link">Check it here →</span>
+          </aside>
+          </div>
+          <p class="roleplay-status" role="status" aria-live="polite" hidden></p>
+        </section>
+        <div class="route-content" hidden><h1></h1><p></p></div>
+      </main>
+      <span class="sr-only" id="announcement" role="status" aria-live="polite"></span>
+    </div>
+    <script type="module" src="/main.js"></script>
+    <script type="module" src="/roleplay.js"></script>
+    <script type="module" src="/mascot.js"></script>
+  </body>
+</html>

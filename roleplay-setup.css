@@ -1,0 +1,66 @@
+.roleplay-screen.setup-active{gap:36px}
+.setup-active .roleplay-intro{gap:16px;min-height:73px;padding-right:110px}
+.setup-active .roleplay-intro h1{max-width:100%;padding-right:0}
+.setup-active .roleplay-intro>p{max-width:100%;width:auto;font-size:16px;line-height:22px}
+.setup-active .roleplay-mascot{width:90px;height:73px;top:0}
+.roleplay-setup{display:flex;flex-direction:column;gap:12px}
+.setup-card{padding:14px 16px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:transparent}
+.setup-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:26px}
+.setup-question-heading{min-width:0}
+.setup-card h2{font:400 16px/22px Figtree,sans-serif;color:#fff;margin:0;outline:none}
+.setup-description{font:400 14px/16px Figtree,sans-serif;color:#77757f;margin:6px 0 0}
+.setup-navigation{display:flex;align-items:center;gap:8px;flex:none}
+.setup-progress{font:400 12px/16px Figtree,sans-serif;color:#77757f;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:center}
+.setup-icon{position:relative;width:16px;height:16px;padding:0;border-radius:3px;display:grid;place-items:center}
+.setup-icon::before{content:"";position:absolute;inset:-6px}
+.setup-icon:disabled{cursor:default}
+.setup-icon:disabled img{opacity:.4}
+.setup-prev-icon{transform:scaleX(-1)}
+.setup-form-body{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.setup-response-list{display:flex;flex-direction:column;gap:18px;flex:1;min-width:0}
+.setup-choices{display:flex;flex-direction:column;gap:18px}
+.setup-option,.setup-custom{position:relative;display:flex;align-items:center;gap:10px;min-height:22px;border:0;border-radius:5px;isolation:isolate}
+.setup-option{cursor:pointer}
+.setup-option::before,.setup-custom::before{content:"";position:absolute;inset:-5px -7px;z-index:-1;border-radius:6px;background:transparent;pointer-events:none;transition:background-color 150ms ease}
+.setup-option>input{position:absolute;inset:-8px -7px;opacity:0;width:calc(100% + 14px);height:calc(100% + 16px);margin:0;cursor:pointer}
+.setup-number{display:grid;place-items:center;width:20px;height:20px;flex:none;border:0;border-radius:5px;background:rgba(255,255,255,.06);font:400 12px/22px Figtree,sans-serif;color:rgba(255,255,255,.4);transition:background-color 150ms ease,color 150ms ease}
+.setup-option-copy{display:flex;flex-direction:column;gap:4px;font:400 16px/22px Figtree,sans-serif;color:#fff;min-width:0;overflow-wrap:anywhere;transition:color 150ms ease}
+.setup-option-copy small{font:400 12px/17px Figtree,sans-serif;color:#77757f}
+/* Selection uses the purple fill only, with no stroke or checkmark. */
+.setup-option:has(input:checked)::before,.setup-custom.has-answer::before{background:rgba(186,171,255,.1)}
+.setup-option:has(input:checked) .setup-number,.setup-custom.has-answer .setup-number{background:rgba(186,171,255,.18);color:#baabff}
+.setup-option:has(input:checked) .setup-option-copy{color:#baabff}
+.setup-option:has(input:focus-visible)::before,.setup-custom:focus-within::before{background:rgba(186,171,255,.16)}
+.setup-option:has(input:focus-visible) .setup-option-copy{text-decoration:underline;text-underline-offset:4px}
+.setup-custom{cursor:text}
+.setup-custom input{font:400 16px/22px Figtree,sans-serif;border:0;outline:none;background:transparent;color:#baabff;width:100%;min-width:0;padding:0;margin-left:-3px;border-radius:0}
+.setup-custom input::placeholder{color:rgba(255,255,255,.4);opacity:1}
+.setup-actions{display:flex;align-items:center;gap:12px;flex:none}
+.setup-skip,.setup-next{display:flex;align-items:center;justify-content:center;height:32px;padding:0 10px;border:0;border-radius:8px;font:400 14px/17px Figtree,sans-serif;white-space:nowrap;transition:background-color 150ms ease,transform 120ms ease}
+.setup-skip{background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+.setup-next{background:#baabff;box-shadow:inset 0 2px 4px rgba(255,255,255,.74);color:#0c0c0e}
+.setup-error{font:400 12px/18px Figtree,sans-serif;margin:12px 0 0;color:#e7b8c1}
+.setup-scenario-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;height:46px;padding:12px;border-radius:12px;background:#212123;box-shadow:inset 0 3px 6.8px rgba(255,255,255,.06);text-align:left}
+.setup-scenario-bar>span{font:400 16px/22px Figtree,sans-serif;color:#77757f;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.setup-scenario-editor{padding:12px;border-radius:12px;background:#212123;box-shadow:inset 0 3px 6.8px rgba(255,255,255,.06)}
+.setup-scenario-editor textarea{width:100%;resize:vertical;min-height:66px;max-height:180px;outline:none;border:0;border-radius:0;padding:0;background:transparent;font:400 16px/22px Figtree,sans-serif;color:#ddd7e9}
+.setup-scenario-editor .setup-actions{justify-content:flex-end;margin-top:12px}
+.setup-card.is-review .setup-card-header{margin-bottom:0}
+.setup-summary{margin:20px 0 0}
+.setup-summary>div{display:grid;grid-template-columns:100px minmax(0,1fr) 28px;align-items:center;gap:12px;min-height:43px;border-bottom:1px solid #ffffff08;padding:6px 0}
+.setup-summary dt{font:400 13px/20px Figtree,sans-serif;color:#77757f}
+.setup-summary dd{font:400 14px/20px Figtree,sans-serif;color:#ddd7e9;margin:0;overflow-wrap:anywhere}
+.setup-summary-edit{width:28px;height:28px;display:grid;place-items:center;padding:6px;border-radius:6px}
+.setup-review-footer{display:flex;gap:12px;align-items:center;justify-content:flex-end;margin-top:24px}
+@media(hover:hover) and (pointer:fine){.setup-option:hover::before{background:#ffffff06}.setup-option:has(input:checked):hover::before{background:#baabff20}.setup-icon:enabled:hover,.setup-summary-edit:hover{background:#ffffff08}.setup-skip:hover{background:#ffffff20}.setup-next:hover{background:#c6baff}}
+.setup-next:active,.setup-skip:active,.setup-icon:enabled:active,.setup-summary-edit:active{transform:scale(.97)}
+@container(max-width:560px){.roleplay-screen.setup-active{gap:28px}.setup-active .roleplay-intro{padding-right:78px;gap:12px}.setup-active .roleplay-intro h1{font-size:26px;line-height:30px}.setup-active .roleplay-mascot{width:65px;height:52.5px}.setup-active .roleplay-intro>p{font-size:14px;line-height:20px}.setup-form-body{flex-wrap:wrap;gap:22px}.setup-response-list{flex-basis:100%}.setup-actions{margin-left:auto}.setup-card-header{gap:12px}.setup-navigation{gap:6px}.setup-description{line-height:20px}.setup-option-copy,.setup-custom input{font-size:15px}.setup-summary>div{grid-template-columns:65px minmax(0,1fr) 28px;gap:8px}.setup-summary dt{font-size:12px}.setup-review-footer{flex-direction:column;align-items:stretch}.setup-scenario-bar>span{font-size:14px}.setup-scenario-editor textarea{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.setup-card *,.setup-card *::before{transition:none!important}}
+
+/* Stable question geometry; only the changing text fades. */
+.setup-card{position:relative}
+.setup-card:not(.is-review) .setup-card-header{min-height:var(--setup-header-height,44px)}
+.setup-card:not(.is-review) .setup-form-body{min-height:var(--setup-body-height,142px);align-items:stretch}
+.setup-form-body>.setup-actions{align-self:flex-end}
+.setup-fade-layer{position:absolute!important;pointer-events:none!important;margin:0!important}
+.setup-measure{position:absolute!important;visibility:hidden!important;pointer-events:none!important;left:0;top:0;--setup-header-height:0px!important;--setup-body-height:0px!important}
