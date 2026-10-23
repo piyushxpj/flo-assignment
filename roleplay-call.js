@@ -111,7 +111,7 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   let remaining = 0, elapsed = 0, lastTick = 0, turn = 0;
   let queue = [], activeMessage = null, nextLetterIn = 0, pause = 0;
   let followLatest = true, transcriptOpen = false, followHistory = true;
-  let lastHistoryTop = 0, historyTouchY = null;
+  let lastHistoryTop = 0, historyTouchY = null, historyResumeUntil = 0;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const compactCall = matchMedia('(max-width: 760px)');
   const conversation = $('.call-conversation');
@@ -147,7 +147,7 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
     // can pause following. New text and layout changes must not cancel it.
     lastHistoryTop = historyScroll.scrollTop;
   }
-  function pauseHistory() { followHistory = false; updateTranscriptScroll(); }
+  function pauseHistory() { historyResumeUntil = 0; followHistory = false; updateTranscriptScroll(); }
   function followConversation(delta) {
     if (followLatest) {
       const target = Math.max(0, conversation.scrollHeight - conversation.clientHeight);
@@ -320,6 +320,9 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   section.addEventListener('keydown', event => {
     if (event.key === 'Escape' && transcriptOpen) { event.preventDefault(); setTranscriptOpen(false, true); }
   });
+  historyScroll.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse') pauseHistory();
+  });
   historyScroll.addEventListener('wheel', event => {
     if (event.deltaY < 0) pauseHistory();
   }, { passive: true });
@@ -337,15 +340,18 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   });
   historyScroll.addEventListener('scroll', () => {
     const top = historyScroll.scrollTop;
-    if (top < lastHistoryTop - 1) followHistory = false;
+    if (top < lastHistoryTop - 1 && performance.now() >= historyResumeUntil) followHistory = false;
     else if (historyScroll.scrollHeight - historyScroll.clientHeight - top < 2) followHistory = true;
     lastHistoryTop = top;
     updateTranscriptScroll();
   }, { passive: true });
-  $('.call-history-latest').addEventListener('click', event => {
+  $('.call-history-latest').addEventListener('click', () => {
     followHistory = true;
     historyScroll.focus({ preventScroll: true });
-    if (event.detail === 0 || reducedMotion.matches) scrollHistoryToLatest();
+    // Ignore residual native scroll events briefly; fresh wheel, touch, or key input
+    // cancels this grace period so the reader always retains control.
+    historyResumeUntil = performance.now() + 600;
+    scrollHistoryToLatest();
     updateTranscriptScroll();
   });
   window.addEventListener('hashchange', navigate);
