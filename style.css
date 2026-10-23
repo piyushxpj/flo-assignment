@@ -133,3 +133,25 @@ nav{transition:padding 260ms cubic-bezier(.32,.72,0,1),margin 260ms cubic-bezier
 .is-collapsed .sidebar-mascot{width:48px;height:36px}
 .is-collapsed .sidebar-mascot-scale{transform:scale(.6666667)}
 @media(prefers-reduced-motion:reduce){.sidebar-footer,.sidebar-footer>.divider,.sidebar-mascot,.sidebar-mascot-scale{transition:none}}
+
+/* On phones the rail stays compact; expanded navigation overlays rather than squeezes content. */
+.sidebar-backdrop{display:none}
+@media(max-width:640px){
+  .app,.app.is-collapsed{--sidebar-width:56px}
+  .sidebar{width:56px;z-index:21}
+  .app:not(.is-collapsed):not(.is-call) .sidebar{position:absolute;inset:0 auto 0 0;width:min(290px,calc(100% - 24px))}
+  .sidebar-backdrop{display:block;position:fixed;inset:0 0 0 min(290px,calc(100% - 24px));z-index:20;background:#0008}
+  .is-collapsed .sidebar-header{padding:8px;height:60px}
+  .collapse-toggle,.is-collapsed .collapse-toggle{width:44px;height:44px;right:12px}
+  .is-collapsed .collapse-toggle{right:6px}
+  .is-collapsed .sidebar-body{padding:12px 6px}
+  .is-collapsed nav{margin-inline:-6px;padding-inline:6px}
+  .is-collapsed .nav-item{padding-left:13px}
+  .nav-item{height:44px}
+  .selection-highlight{height:44px}
+  .is-collapsed .selection-highlight{width:calc(100% - 12px)}
+  .is-collapsed .profile{padding:6px}
+  .is-collapsed .sidebar-mascot{left:-2px}
+  .sidebar{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+  .content{margin-top:max(8px,env(safe-area-inset-top));margin-bottom:max(8px,env(safe-area-inset-bottom))}
+}

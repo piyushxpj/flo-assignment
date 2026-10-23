@@ -54,7 +54,7 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   section.innerHTML = `
     <header class="call-header">
       <div class="call-heading"><h1 id="call-title" tabindex="-1"></h1>
-        <div class="call-tags"><span><img src="/assets/call-roleplay.svg" alt="" />Roleplay</span><span class="call-mode"></span></div>
+        <div class="call-tags"><span><img src="/assets/call-roleplay.svg" alt="" />Roleplay</span><span class="call-mode"></span><button class="call-transcript-toggle" type="button" aria-expanded="false" aria-controls="call-history-panel">Show transcript</button></div>
       </div>
       <div class="call-timer"><span>Time Left</span><time>10:00</time></div>
     </header>
@@ -113,6 +113,7 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   let followLatest = true, transcriptOpen = false, followHistory = true;
   let lastHistoryTop = 0, historyTouchY = null;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const compactCall = matchMedia('(max-width: 760px)');
   const conversation = $('.call-conversation');
   const historyScroll = $('.call-history-scroll');
   let muted = false, sharing = false, ended = false, speaker = 'flo';
@@ -167,13 +168,16 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
     $('.call-history-panel').setAttribute('aria-hidden', String(!value));
     section.classList.toggle('is-transcript-open', value);
     $('.call-transcript-pill').setAttribute('aria-expanded', String(value));
+    $('.call-transcript-toggle').setAttribute('aria-expanded', String(value));
+    $('.call-transcript-toggle').textContent = value ? 'Hide transcript' : 'Show transcript';
+    $('.call-body').inert = value && compactCall.matches;
     updateHistory();
     if (value) {
       followHistory = true;
       scrollHistoryToLatest();
       $('#call-history-title').focus({ preventScroll: true });
     } else if (restoreFocus) {
-      ($('.call-transcript-hover').hidden ? $('#call-title') : $('.call-transcript-pill')).focus({ preventScroll: true });
+      ($('.call-transcript-toggle').getClientRects().length ? $('.call-transcript-toggle') : $('.call-transcript-hover').hidden ? $('#call-title') : $('.call-transcript-pill')).focus({ preventScroll: true });
     }
     updateTranscriptScroll();
   }
@@ -235,7 +239,7 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   }
   function end() {
     if (ended) return;
-    ended = true; setTranscriptOpen(false); $('.call-workspace').hidden = true; clearInterval(interval); orb?.setActive(false); setSharing(false);
+    ended = true; $('.call-transcript-toggle').hidden = true; setTranscriptOpen(false); $('.call-workspace').hidden = true; clearInterval(interval); orb?.setActive(false); setSharing(false);
     $('.call-body').hidden = true; $('.call-footer').hidden = true; $('.call-ended').hidden = false;
     $('.call-elapsed').textContent = formatTime(elapsed); $('.call-ended-mode').textContent = config.mode === 'graded' ? 'Graded' : 'Practice';
     $('#call-ended-title').focus({preventScroll:true});
@@ -253,7 +257,7 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
   function start(nextConfig) {
     config = nextConfig; details = scenarioDetails(config);
     if (!orb) orb = mountFloOrb($('.call-orb canvas'));
-    ended = false; remaining = config.durationMinutes * 60; elapsed = turn = 0;
+    ended = false; $('.call-transcript-toggle').hidden = false; remaining = config.durationMinutes * 60; elapsed = turn = 0;
     queue = details.messages || [['flo', details.opening], ['you', details.response], ['flo', details.followup], ['you', details.response2], ['flo', details.closing]];
     activeMessage = null; pause = .6; followLatest = true; followHistory = true;
     setTranscriptOpen(false); $('.call-workspace').hidden = false;
@@ -306,6 +310,11 @@ export function mountRoleplayCall(content, { onReturn } = {}) {
     if (conversation.scrollHeight - conversation.clientHeight - conversation.scrollTop < 2) followLatest = true;
     updateHistory();
   }, { passive: true });
+  compactCall.addEventListener('change', () => {
+    $('.call-body').inert = transcriptOpen && compactCall.matches;
+    updateHistory(); updateTranscriptScroll();
+  });
+  $('.call-transcript-toggle').addEventListener('click', () => setTranscriptOpen(!transcriptOpen, transcriptOpen));
   $('.call-transcript-pill').addEventListener('click', () => setTranscriptOpen(true));
   $('.call-history-close').addEventListener('click', () => setTranscriptOpen(false, true));
   section.addEventListener('keydown', event => {

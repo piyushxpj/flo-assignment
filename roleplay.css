@@ -56,3 +56,13 @@
 .composer-input:focus-within .practice-placeholder,.composer-input.has-value .practice-placeholder{opacity:0}
 @container(max-width:560px){.practice-placeholder{font-size:14px;line-height:20px}.rotating-prompt{display:block}}
 @media(prefers-reduced-motion:reduce){.practice-placeholder{transition:none}.rotating-prompt::after{display:none}}
+
+@media(max-width:640px){
+  .content.is-roleplay{padding:28px 0}
+  .roleplay-screen{max-width:calc(100% - 28px)}
+  .roleplay-intro h1{font-size:26px;line-height:30px}
+  .scenario-card{min-height:140px}
+  .view-scenarios,.talk-to-flo,.send-scenario{min-height:44px}
+  #practice-prompt,.practice-placeholder{font-size:16px;line-height:22px}
+  .composer-input{height:112px}
+}

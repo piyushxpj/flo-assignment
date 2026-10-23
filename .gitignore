@@ -7,3 +7,4 @@ dist/
 *.log
 preview.png
 *-preview.png
+.vercel

@@ -48,17 +48,35 @@ for (const [group, links] of Object.entries(groups)) {
   }
 }
 
+const mobileNavigation = matchMedia('(max-width: 640px)');
+const sidebarBackdrop = document.createElement('button');
+sidebarBackdrop.className = 'sidebar-backdrop';
+sidebarBackdrop.setAttribute('aria-label', 'Close navigation');
+sidebarBackdrop.hidden = true;
+app.append(sidebarBackdrop);
+function syncMobileNavigation() {
+  const overlay = mobileNavigation.matches && !app.classList.contains('is-collapsed') && !app.classList.contains('is-call');
+  sidebarBackdrop.hidden = !overlay;
+  content.inert = overlay;
+}
 function setCollapsed(collapsed) {
   app.classList.toggle('is-collapsed', collapsed);
   document.querySelector('.brand').inert = collapsed;
   collapseToggle.setAttribute('aria-expanded', String(!collapsed));
   collapseToggle.setAttribute('aria-label', `${collapsed ? 'Expand' : 'Collapse'} sidebar`);
   collapseToggle.title = `${collapsed ? 'Expand' : 'Collapse'} sidebar`;
+  syncMobileNavigation();
   try { sessionStorage.setItem('flo-sidebar-collapsed', String(collapsed)); } catch { /* Storage can be unavailable in private contexts. */ }
 }
 let storedCollapse;
 try { storedCollapse = sessionStorage.getItem('flo-sidebar-collapsed'); } catch { /* Use viewport default. */ }
-setCollapsed(storedCollapse === null || storedCollapse === undefined ? matchMedia('(max-width: 520px)').matches : storedCollapse === 'true');
+setCollapsed(mobileNavigation.matches || storedCollapse === 'true');
+mobileNavigation.addEventListener('change', () => { if (mobileNavigation.matches) setCollapsed(true); else syncMobileNavigation(); });
+sidebarBackdrop.addEventListener('click', () => { setCollapsed(true); collapseToggle.focus(); });
+navigation.addEventListener('click', event => { if (mobileNavigation.matches && event.target.closest('a')) setCollapsed(true); });
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !sidebarBackdrop.hidden) { setCollapsed(true); collapseToggle.focus(); }
+});
 collapseToggle.addEventListener('click', () => setCollapsed(!app.classList.contains('is-collapsed')));
 
 practiceToggle.addEventListener('click', () => {
@@ -84,6 +102,7 @@ function navigate() {
   content.classList.toggle('is-roleplay', route === 'roleplay' && !inCall);
   content.classList.toggle('is-call', inCall);
   app.classList.toggle('is-call', inCall);
+  syncMobileNavigation();
   document.querySelector('.sidebar').hidden = inCall;
   document.title = `${label} · Flo`;
   const panel = document.querySelector('.route-content');
